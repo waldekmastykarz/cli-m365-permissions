@@ -1,0 +1,107 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/dev-proxy/main/schemas/v0.20.0/rc.schema.json",
+  "plugins": [
+    // mocks that should override Graph docs mocks
+    {
+      "name": "GraphMockResponsePlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "configSection": "graphMocksOverrides",
+      "urlsToWatch": [
+        "https://graph.microsoft.com/v1.0/*",
+        "https://graph.microsoft.com/beta/*",
+        "https://graph.microsoft.us/v1.0/*",
+        "https://graph.microsoft.us/beta/*",
+        "https://dod-graph.microsoft.us/v1.0/*",
+        "https://dod-graph.microsoft.us/beta/*",
+        "https://microsoftgraph.chinacloudapi.cn/v1.0/*",
+        "https://microsoftgraph.chinacloudapi.cn/beta/*"
+      ]
+    },
+    {
+      "name": "GraphMockResponsePlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "configSection": "graphDocsMocks",
+      "urlsToWatch": [
+        "https://graph.microsoft.com/v1.0/*",
+        "https://graph.microsoft.com/beta/*",
+        "https://graph.microsoft.us/v1.0/*",
+        "https://graph.microsoft.us/beta/*",
+        "https://dod-graph.microsoft.us/v1.0/*",
+        "https://dod-graph.microsoft.us/beta/*",
+        "https://microsoftgraph.chinacloudapi.cn/v1.0/*",
+        "https://microsoftgraph.chinacloudapi.cn/beta/*"
+      ]
+    },
+    // extra mocks that we need for call inside CLI for M365
+    {
+      "name": "GraphMockResponsePlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "configSection": "graphCustomMocks",
+      "urlsToWatch": [
+        "https://graph.microsoft.com/v1.0/*",
+        "https://graph.microsoft.com/beta/*",
+        "https://graph.microsoft.us/v1.0/*",
+        "https://graph.microsoft.us/beta/*",
+        "https://dod-graph.microsoft.us/v1.0/*",
+        "https://dod-graph.microsoft.us/beta/*",
+        "https://microsoftgraph.chinacloudapi.cn/v1.0/*",
+        "https://microsoftgraph.chinacloudapi.cn/beta/*"
+      ]
+    },
+    {
+      "name": "MockResponsePlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "configSection": "adaptiveCardsMocks",
+      "urlsToWatch": [
+        "https://contoso.webhook.office.com/webhookb2*"
+      ]
+    },
+    {
+      "name": "MinimalPermissionsPlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "urlsToWatch": [
+        "https://graph.microsoft.com/v1.0/*",
+        "https://graph.microsoft.com/beta/*",
+        "https://graph.microsoft.us/v1.0/*",
+        "https://graph.microsoft.us/beta/*",
+        "https://dod-graph.microsoft.us/v1.0/*",
+        "https://dod-graph.microsoft.us/beta/*",
+        "https://microsoftgraph.chinacloudapi.cn/v1.0/*",
+        "https://microsoftgraph.chinacloudapi.cn/beta/*"
+      ]
+    },
+    {
+      "name": "JsonReporter",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+      "urlsToWatch": [
+        // dummy because we need to provide here something
+        "https://graph.microsoft.com/*"
+      ]
+    }
+  ],
+  "urlsToWatch": [],
+  "graphMocksOverrides": {
+    "mocksFile": ".devproxy/graph-mocks-overrides.json",
+    "blockUnmockedRequests": false
+  },
+  "graphDocsMocks": {
+    "mocksFile": ".devproxy/graph-docs-mocks.json",
+    "blockUnmockedRequests": false
+  },
+  "graphCustomMocks": {
+    "mocksFile": ".devproxy/graph-cli-mocks.json",
+    "blockUnmockedRequests": false
+  },
+  "adaptiveCardsMocks": {
+    "mocksFile": ".devproxy/adaptivecards-mocks.json",
+    // we block unmocked requests only in the last plugin
+    "blockUnmockedRequests": true
+  },
+  "asSystemProxy": false
+}

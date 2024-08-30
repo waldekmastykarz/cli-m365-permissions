@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/dev-proxy/main/schemas/v0.20.0/mockresponseplugin.schema.json",
+  "mocks": [
+    {
+      "request": {
+        "url": "https://contoso.webhook.office.com/webhookb2*",
+        "method": "POST"
+      },
+      "response": {
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "text/plain"
+          }
+        ],
+        "body": "1"
+      }
+    }
+  ]
+}
