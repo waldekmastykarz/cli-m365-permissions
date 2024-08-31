@@ -96,11 +96,14 @@
   },
   "graphCustomMocks": {
     "mocksFile": ".devproxy/graph-cli-mocks.json",
-    "blockUnmockedRequests": false
+    // we block unmocked requests in the last plugin for the same set of
+    // URLs to watch
+    "blockUnmockedRequests": true
   },
   "adaptiveCardsMocks": {
     "mocksFile": ".devproxy/adaptivecards-mocks.json",
-    // we block unmocked requests only in the last plugin
+    // we block unmocked requests in the last plugin for the same set of
+    // URLs to watch
     "blockUnmockedRequests": true
   },
   "asSystemProxy": false

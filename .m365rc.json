@@ -2,6 +2,10 @@
   "apps": [
     {
       "appId": "e23d235c-fcdf-45d1-ac5f-24ab2ee0695d"
+    },
+    {
+      "appId": "631a96bc-a705-4eda-9f99-fdaf9f54f6a2",
+      "name": "My Entra app"
     }
   ]
 }

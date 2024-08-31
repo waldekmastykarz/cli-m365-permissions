@@ -4,16 +4,26 @@
     "examples": [
       {
         "cmd": "app get",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)"
+        ],
         "skip": true
       },
       {
         "cmd": "app get --appId e23d235c-fcdf-45d1-ac5f-24ab2ee0695d",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
         "skip": true
       }
     ]
   },
   {
     "command": "app permission add",
+    "skip": true,
+    "comment": "Fails when service principal doesn't exist. https://github.com/pnp/cli-microsoft365/issues/6289",
     "examples": [
       {
         "cmd": "app permission add --applicationPermission 'https://graph.microsoft.com/User.ReadWrite.All https://graph.microsoft.com/User.Read.All' --grantAdminConsent"
@@ -30,10 +40,19 @@
     "command": "app permission list",
     "examples": [
       {
-        "cmd": "app permission list"
+        "cmd": "app permission list",
+        "errors": [
+          "/servicePrincipals/{servicePrincipals-id}/appRoles (Permissions information for 'GET /servicePrincipals/{servicePrincipals-id}/appRoles' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "app permission list --appId e23d235c-fcdf-45d1-ac5f-24ab2ee0695d"
+        "cmd": "app permission list --appId e23d235c-fcdf-45d1-ac5f-24ab2ee0695d",
+        "errors": [
+          "/servicePrincipals/{servicePrincipals-id}/{unknown-id} (Permissions information for 'GET /servicePrincipals/{servicePrincipals-id}/{unknown-id}' was not found.)",
+          "/servicePrincipals/{servicePrincipals-id}/appRoles (Permissions information for 'GET /servicePrincipals/{servicePrincipals-id}/appRoles' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -41,10 +60,14 @@
     "command": "booking business get",
     "examples": [
       {
-        "cmd": "booking business get --id 'business@contoso.onmicrosoft.com'"
+        "cmd": "booking business get --id 'business@contoso.onmicrosoft.com'",
+        "scopes": "Bookings.Read.All",
+        "skip": true
       },
       {
-        "cmd": "booking business get --name 'business name'"
+        "cmd": "booking business get --name 'business name'",
+        "scopes": "Bookings.Read.All",
+        "skip": true
       }
     ]
   },
@@ -52,7 +75,9 @@
     "command": "booking business list",
     "examples": [
       {
-        "cmd": "booking business list"
+        "cmd": "booking business list",
+        "scopes": "Bookings.Read.All",
+        "skip": true
       }
     ]
   },
@@ -60,13 +85,19 @@
     "command": "entra administrativeunit add",
     "examples": [
       {
-        "cmd": "entra administrativeunit add --displayName 'Marketing Division'"
+        "cmd": "entra administrativeunit add --displayName 'Marketing Division'",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit add --displayName 'Marketing Division' --description 'Marketing department administration'"
+        "cmd": "entra administrativeunit add --displayName 'Marketing Division' --description 'Marketing department administration'",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit add --displayName 'Marketing Division' --hiddenMembership"
+        "cmd": "entra administrativeunit add --displayName 'Marketing Division' --hiddenMembership",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       }
     ]
   },
@@ -74,10 +105,14 @@
     "command": "entra administrativeunit get",
     "examples": [
       {
-        "cmd": "entra administrativeunit get --id 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7"
+        "cmd": "entra administrativeunit get --id 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit get --displayName 'Marketing Division'"
+        "cmd": "entra administrativeunit get --displayName 'Marketing Division'",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       }
     ]
   },
@@ -85,7 +120,9 @@
     "command": "entra administrativeunit list",
     "examples": [
       {
-        "cmd": "entra administrativeunit list"
+        "cmd": "entra administrativeunit list",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       }
     ]
   },
@@ -93,22 +130,34 @@
     "command": "entra administrativeunit member add",
     "examples": [
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --userId 1caf7dcd-7e83-4c3a-94f7-932a1299c844"
+        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --userId 1caf7dcd-7e83-4c3a-94f7-932a1299c844",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --userName john.doe@contoso.com"
+        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --userName john.doe@contoso.com",
+        "scopes": "AdministrativeUnit.ReadWrite.All User.ReadBasic.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --groupId b2307a39-e878-458b-bc90-03bc578531d6"
+        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --groupId b2307a39-e878-458b-bc90-03bc578531d6",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --groupName 'Marketing Group'"
+        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --groupName 'Marketing Group'",
+        "scopes": "AdministrativeUnit.ReadWrite.All GroupMember.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --deviceId 810c84a8-4a9e-49e6-bf7d-12d183f40d01"
+        "cmd": "entra administrativeunit member add --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --deviceId 810c84a8-4a9e-49e6-bf7d-12d183f40d01",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --deviceName 'JohnDoe-PC'"
+        "cmd": "entra administrativeunit member add --administrativeUnitName 'Marketing Division' --deviceName 'JohnDoe-PC'",
+        "scopes": "Device.Read.All AdministrativeUnit.ReadWrite.All",
+        "skip": true
       }
     ]
   },
@@ -116,10 +165,14 @@
     "command": "entra administrativeunit member get",
     "examples": [
       {
-        "cmd": "entra administrativeunit member get --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7"
+        "cmd": "entra administrativeunit member get --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member get --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitName 'Marketing Division'"
+        "cmd": "entra administrativeunit member get --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitName 'Marketing Division'",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       }
     ]
   },
@@ -127,31 +180,49 @@
     "command": "entra administrativeunit member list",
     "examples": [
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --properties 'id,displayName'"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --properties 'id,displayName'",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitName 'Marketing Division'"
+        "cmd": "entra administrativeunit member list --administrativeUnitName 'Marketing Division'",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type user"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type user",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type user --filter \"userType eq 'Guest'\""
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type user --filter \"userType eq 'Guest'\"",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type group"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type group",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type group --properties 'id,displayName,owners/displayName'"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type group --properties 'id,displayName,owners/displayName'",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type device"
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type device",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type device --filter \"operatingSystem eq 'linux'\""
+        "cmd": "entra administrativeunit member list --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --type device --filter \"operatingSystem eq 'linux'\"",
+        "scopes": "AdministrativeUnit.Read.All",
+        "skip": true
       }
     ]
   },
@@ -159,25 +230,39 @@
     "command": "entra administrativeunit member remove",
     "examples": [
       {
-        "cmd": "entra administrativeunit member remove --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit member remove --id 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --userId 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit member remove --userId 64131a70-beb9-4ccb-b590-4401e58446ec --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --groupId b2307a39-e878-458b-bc90-03bc578531d6 --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit member remove --groupId b2307a39-e878-458b-bc90-03bc578531d6 --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --deviceId 810c84a8-4a9e-49e6-bf7d-12d183f40d01 --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit member remove --deviceId 810c84a8-4a9e-49e6-bf7d-12d183f40d01 --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --userName john.doe@contoso.com --administrativeUnitName 'Marketing Division' --force"
+        "cmd": "entra administrativeunit member remove --userName john.doe@contoso.com --administrativeUnitName 'Marketing Division' --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All User.ReadBasic.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --groupName 'Marketing Group' --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit member remove --groupName 'Marketing Group' --administrativeUnitId 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All GroupMember.Read.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit member remove --deviceName 'JohnDoe-PC' --administrativeUnitName 'Marketing Division' --force"
+        "cmd": "entra administrativeunit member remove --deviceName 'JohnDoe-PC' --administrativeUnitName 'Marketing Division' --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All Device.Read.All",
+        "skip": true
       }
     ]
   },
@@ -185,10 +270,14 @@
     "command": "entra administrativeunit remove",
     "examples": [
       {
-        "cmd": "entra administrativeunit remove --id 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force"
+        "cmd": "entra administrativeunit remove --id 03c4c9dc-6f0c-4c4f-a4e6-0c9ed80f54c7 --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit remove --displayName 'Marketing Division' --force"
+        "cmd": "entra administrativeunit remove --displayName 'Marketing Division' --force",
+        "scopes": "AdministrativeUnit.ReadWrite.All",
+        "skip": true
       }
     ]
   },
@@ -196,10 +285,14 @@
     "command": "entra administrativeunit roleassignment add",
     "examples": [
       {
-        "cmd": "entra administrativeunit roleassignment add --administrativeUnitId 81bb36e4-f4c6-4984-8e56-d4f8feae9e09 --roleDefinitionId 4d6ac14f-3453-41d0-bef9-a3e0c569773a --userId 5f91f951-7305-4a27-9b63-7b00906de09f"
+        "cmd": "entra administrativeunit roleassignment add --administrativeUnitId 81bb36e4-f4c6-4984-8e56-d4f8feae9e09 --roleDefinitionId 4d6ac14f-3453-41d0-bef9-a3e0c569773a --userId 5f91f951-7305-4a27-9b63-7b00906de09f",
+        "scopes": "RoleManagement.ReadWrite.Directory",
+        "skip": true
       },
       {
-        "cmd": "entra administrativeunit roleassignment add --administrativeUnitName 'Marketing Division' --roleDefinitionName 'License Administrator' --userName 'john.doe@contoso.com'"
+        "cmd": "entra administrativeunit roleassignment add --administrativeUnitName 'Marketing Division' --roleDefinitionName 'License Administrator' --userName 'john.doe@contoso.com'",
+        "scopes": "User.ReadBasic.All AdministrativeUnit.Read.All RoleManagement.ReadWrite.Directory",
+        "skip": true
       }
     ]
   },
@@ -207,46 +300,112 @@
     "command": "entra app add",
     "examples": [
       {
-        "cmd": "entra app add --name 'My Entra app'"
+        "cmd": "entra app add --name 'My Entra app'",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --manifest @manifest.json"
+        "cmd": "entra app add --manifest @manifest.json",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --multitenant"
+        "cmd": "entra app add --name 'My Entra app' --multitenant",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --redirectUris 'https://myapp.azurewebsites.net,http://localhost:4000' --platform web"
+        "cmd": "entra app add --name 'My Entra app' --redirectUris 'https://myapp.azurewebsites.net,http://localhost:4000' --platform web",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --redirectUris 'https://login.microsoftonline.com/common/oauth2/nativeclient' --platform publicClient"
+        "cmd": "entra app add --name 'My Entra app' --redirectUris 'https://login.microsoftonline.com/common/oauth2/nativeclient' --platform publicClient",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --withSecret"
+        "cmd": "entra app add --name 'My Entra app' --withSecret",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id}/addPassword (Permissions information for 'POST /myorganization/applications/{applications-id}/addPassword' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --withSecret --apisApplication 'https://graph.microsoft.com/Group.ReadWrite.All,https://graph.microsoft.com/Directory.Read.All'"
+        "cmd": "entra app add --name 'My Entra app' --withSecret --apisApplication 'https://graph.microsoft.com/Group.ReadWrite.All,https://graph.microsoft.com/Directory.Read.All'",
+        "errors": [
+          "/myorganization/servicePrincipals (Permissions information for 'GET /myorganization/servicePrincipals' was not found.)",
+          "/myorganization/applications/{applications-id}/addPassword (Permissions information for 'POST /myorganization/applications/{applications-id}/addPassword' was not found.)",
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --platform spa --redirectUris 'https://myspa.azurewebsites.net,http://localhost:8080' --apisDelegated 'https://graph.microsoft.com/Calendars.Read,https://graph.microsoft.com/Directory.Read.All' --implicitFlow"
+        "cmd": "entra app add --name 'My Entra app' --platform spa --redirectUris 'https://myspa.azurewebsites.net,http://localhost:8080' --apisDelegated 'https://graph.microsoft.com/Calendars.Read,https://graph.microsoft.com/Directory.Read.All' --implicitFlow",
+        "errors": [
+          "/myorganization/servicePrincipals (Permissions information for 'GET /myorganization/servicePrincipals' was not found.)",
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --uri https://contoso.onmicrosoft.com/myapp"
+        "cmd": "entra app add --name 'My Entra app' --uri https://contoso.onmicrosoft.com/myapp",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --uri api://caf406b91cd4.ngrok.io/_appId_ --scopeName access_as_user --scopeAdminConsentDescription 'Access as a user' --scopeAdminConsentDisplayName 'Access as a user' --scopeConsentBy adminsAndUsers"
+        "cmd": "entra app add --name 'My Entra app' --uri api://caf406b91cd4.ngrok.io/_appId_ --scopeName access_as_user --scopeAdminConsentDescription 'Access as a user' --scopeAdminConsentDisplayName 'Access as a user' --scopeConsentBy adminsAndUsers",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --apisApplication 'https://graph.microsoft.com/Group.ReadWrite.All' --grantAdminConsent"
+        "cmd": "entra app add --name 'My Entra app' --apisApplication 'https://graph.microsoft.com/Group.ReadWrite.All' --grantAdminConsent",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)",
+          "/myorganization/servicePrincipals/{servicePrincipals-id}/appRoleAssignments (Permissions information for 'POST /myorganization/servicePrincipals/{servicePrincipals-id}/appRoleAssignments' was not found.)",
+          "/myorganization/servicePrincipals (Permissions information for 'GET /myorganization/servicePrincipals' was not found.)",
+          "/myorganization/servicePrincipals (Permissions information for 'POST /myorganization/servicePrincipals' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --save"
+        "cmd": "entra app add --name 'My Entra app' --save",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --certificateDisplayName \"Some certificate name\" --certificateFile \"c:\\temp\\some-certificate.cer\""
+        "cmd": "entra app add --name 'My Entra app' --certificateDisplayName \"Some certificate name\" --certificateFile \"some-certificate.cer\"",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app add --name 'My Entra app' --allowPublicClientFlows"
+        "cmd": "entra app add --name 'My Entra app' --allowPublicClientFlows",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'POST /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -254,16 +413,35 @@
     "command": "entra app get",
     "examples": [
       {
-        "cmd": "entra app get --appId d75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app get --appId d75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app get --objectId d75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app get --objectId d75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app get --name \"My app\""
+        "cmd": "entra app get --name \"My app\"",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app get --name \"My app\" --save"
+        "cmd": "entra app get --name \"My app\" --save",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -271,7 +449,9 @@
     "command": "entra app list",
     "examples": [
       {
-        "cmd": "entra app list"
+        "cmd": "entra app list",
+        "scopes": "Application.Read.All",
+        "skip": true
       }
     ]
   },

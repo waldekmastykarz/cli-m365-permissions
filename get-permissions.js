@@ -25,7 +25,7 @@ async function toggleDevProxyRecording(enabled) {
 
 function runCliCommand(cmd) {
   try {
-    const output = execSync(`HTTP_PROXY=http://127.0.0.1:8000 m365 ${cmd} --debug`, { stdio: 'pipe' });
+    const output = execSync(`HTTP_PROXY=http://127.0.0.1:8000 m365 ${cmd}`, { stdio: 'pipe' });
     debug(output.toString());
   }
   catch (e) {
@@ -57,7 +57,7 @@ async function detectMinimalScopes(cmd) {
 
     if (!newFile) {
       error('    Timed out');
-      return undefined;
+      return { errors: ['Timed out'] };
     }
 
     const report = JSON.parse(fs.readFileSync(newFile, 'utf8'));
@@ -65,10 +65,10 @@ async function detectMinimalScopes(cmd) {
     if (report.errors && report.errors.length > 0) {
       error(`    Errors detected while running command '${cmd}':`);
       report.errors.forEach(err => error(`      ${err}`));
-      return undefined;
+      return { errors: report.errors.map(e => e.startsWith('- ') ? e.substring(2) : e) };
     }
 
-    return report.minimalPermissions;
+    return { scopes: report.minimalPermissions };
   }
   catch (e) {
     error(e);
@@ -100,7 +100,9 @@ async function main() {
 
       console.log(`  - ${cmd.cmd}`);
       try {
-        cmd.scopes = (await detectMinimalScopes(cmd.cmd))?.join(' ');
+        const { scopes, errors } = await detectMinimalScopes(cmd.cmd);
+        cmd.scopes = scopes?.join(' ');
+        cmd.errors = errors;
         // temp
         cmd.skip = true;
         fs.writeFileSync(commandsFile, JSON.stringify(commands, null, 2));
