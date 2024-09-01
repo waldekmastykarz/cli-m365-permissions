@@ -115,7 +115,19 @@
             "oauth2PermissionScopes": [],
             "preAuthorizedApplications": []
           },
-          "appRoles": [],
+          "appRoles": [
+            {
+              "allowedMemberTypes": [
+                "Application"
+              ],
+              "description": "Allows the app to read all class assignments without grades for all users without a signed-in user.",
+              "displayName": "Get Product",
+              "id": "15927ce6-1933-4b2f-b029-4dee3d53f4dd",
+              "isEnabled": true,
+              "origin": "Application",
+              "value": "Product.Get"
+            }
+          ],
           "publicClient": {
             "redirectUris": []
           },
@@ -141,6 +153,9 @@
               "enableIdTokenIssuance": false,
               "enableAccessTokenIssuance": false
             }
+          },
+          "spa": {
+            "redirectUris": []
           }
         }
       }

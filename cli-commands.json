@@ -606,16 +606,36 @@
     "command": "entra app role remove",
     "examples": [
       {
-        "cmd": "entra app role remove --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --name \"Get Product\" --force"
+        "cmd": "entra app role remove --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --name \"Get Product\" --force",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role remove --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --claim \"Product.Get\" --force"
+        "cmd": "entra app role remove --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --claim \"Product.Get\" --force",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role remove --appName \"My app\" --claim \"Product.Get\" --force"
+        "cmd": "entra app role remove --appName \"My app\" --claim \"Product.Get\" --force",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role remove --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --id 15927ce6-1933-4b2f-b029-4dee3d53f4dd --force"
+        "cmd": "entra app role remove --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --id 15927ce6-1933-4b2f-b029-4dee3d53f4dd --force",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -623,25 +643,59 @@
     "command": "entra app set",
     "examples": [
       {
-        "cmd": "entra app set --objectId d75be2e1-0204-4f95-857d-51a37cf40be8 --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app set --objectId d75be2e1-0204-4f95-857d-51a37cf40be8 --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --name \"My app\" --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app set --name \"My app\" --uris https://contoso.com/e75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --objectId 95cfe30d-ed44-4f9d-b73d-c66560f72e83 --redirectUris https://contoso.com/auth --platform spa"
+        "cmd": "entra app set --objectId 95cfe30d-ed44-4f9d-b73d-c66560f72e83 --redirectUris https://contoso.com/auth --platform spa",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --objectId 95cfe30d-ed44-4f9d-b73d-c66560f72e83 --redirectUris https://contoso.com/auth --platform spa --redirectUrisToRemove https://contoso.com/old-auth"
+        "cmd": "entra app set --objectId 95cfe30d-ed44-4f9d-b73d-c66560f72e83 --redirectUris https://contoso.com/auth --platform spa --redirectUrisToRemove https://contoso.com/old-auth",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --certificateDisplayName \"Some certificate name\" --certificateFile \"c:\\temp\\some-certificate.cer\""
+        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --certificateDisplayName \"Some certificate name\" --certificateFile \"some-certificate.cer\"",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --allowPublicClientFlows true"
+        "cmd": "entra app set --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --allowPublicClientFlows true",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
