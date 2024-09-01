@@ -34,6 +34,37 @@
     },
     {
       "request": {
+        "url": "https://graph.microsoft.com/v1.0/applications?$filter=*"
+      },
+      "response": {
+        "statusCode": 200,
+        "headers": [
+          {
+            "name": "Content-type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications",
+          "@odata.count": 1,
+          "value": [
+            {
+              "appId": "00000000-0000-0000-0000-000000000000",
+              "id": "00000000-0000-0000-0000-000000000000",
+              "identifierUris": [
+                "http://contoso/"
+              ],
+              "displayName": "a",
+              "publisherDomain": "contoso.com",
+              "signInAudience": "AzureADMyOrg",
+              "requiredResourceAccess": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
         "url": "https://graph.microsoft.com/v1.0/myorganization/applications/*",
         "method": "GET"
       },
@@ -631,6 +662,16 @@
           "resourceDisplayName": "Microsoft Graph",
           "resourceId": "8fce32da-1246-437b-99cd-76d1d4677bd5"
         }
+      }
+    },
+    {
+      "request": {
+        "url": "https://graph.microsoft.com/v1.0/myorganization/applications/*",
+        "method": "DELETE"
+      },
+      "response": {
+        "statusCode": 204,
+        "headers": []
       }
     }
   ]

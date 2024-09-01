@@ -459,13 +459,19 @@
     "command": "entra app permission add",
     "examples": [
       {
-        "cmd": "entra app permission add --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All'"
+        "cmd": "entra app permission add --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All'",
+        "scopes": "Application.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra app permission add --appObjectId 'e0306bb2-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All'"
+        "cmd": "entra app permission add --appObjectId 'e0306bb2-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All'",
+        "scopes": "Application.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra app permission add --appName 'Contoso App' --applicationPermissions 'https://graph.microsoft.com/Sites.FullControl.All https://microsoft.sharepoint-df.com/Sites.FullControl.All' --grantAdminConsent"
+        "cmd": "entra app permission add --appName 'Contoso App' --applicationPermissions 'https://graph.microsoft.com/Sites.FullControl.All https://microsoft.sharepoint-df.com/Sites.FullControl.All' --grantAdminConsent",
+        "scopes": "Application.ReadWrite.All",
+        "skip": true
       }
     ]
   },
@@ -473,13 +479,27 @@
     "command": "entra app permission list",
     "examples": [
       {
-        "cmd": "entra app permission list --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690'"
+        "cmd": "entra app permission list --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690'",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app permission list --appName 'Contoso App'"
+        "cmd": "entra app permission list --appName 'Contoso App'",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app permission list --appObjectId '64381cda-d40d-4fb0-bce2-bece391546a2' --type delegated"
+        "cmd": "entra app permission list --appObjectId '64381cda-d40d-4fb0-bce2-bece391546a2' --type delegated",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -487,10 +507,14 @@
     "command": "entra app permission remove",
     "examples": [
       {
-        "cmd": "entra app permission remove --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All' --force"
+        "cmd": "entra app permission remove --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --delegatedPermissions 'https://management.azure.com/user_impersonation https://service.flow.microsoft.com/Flows.Read.All https://graph.microsoft.com/Agreement.Read.All' --force",
+        "scopes": "Application.ReadWrite.All",
+        "skip": true
       },
       {
-        "cmd": "entra app permission remove --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --applicationPermissions 'https://graph.microsoft.com/Sites.FullControl.All https://microsoft.sharepoint-df.com/Sites.FullControl.All' --revokeAdminConsent --force"
+        "cmd": "entra app permission remove --appId 'f1417aa3-bf0b-4cc5-a845-a0b2cf11f690' --applicationPermissions 'https://graph.microsoft.com/Sites.FullControl.All https://microsoft.sharepoint-df.com/Sites.FullControl.All' --revokeAdminConsent --force",
+        "skip": true,
+        "comment": "Error in CLI: https://github.com/pnp/cli-microsoft365/issues/6291"
       }
     ]
   },
@@ -498,13 +522,26 @@
     "command": "entra app remove",
     "examples": [
       {
-        "cmd": "entra app remove --appId d75be2e1-0204-4f95-857d-51a37cf40be8 --force"
+        "cmd": "entra app remove --appId d75be2e1-0204-4f95-857d-51a37cf40be8 --force",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'DELETE /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app remove --objectId d75be2e1-0204-4f95-857d-51a37cf40be8 --force"
+        "cmd": "entra app remove --objectId d75be2e1-0204-4f95-857d-51a37cf40be8 --force",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'DELETE /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app remove --name \"My app\" --force"
+        "cmd": "entra app remove --name \"My app\" --force",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'DELETE /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -512,13 +549,28 @@
     "command": "entra app role add",
     "examples": [
       {
-        "cmd": "entra app role add --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers"
+        "cmd": "entra app role add --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8 --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role add --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers"
+        "cmd": "entra app role add --appId e75be2e1-0204-4f95-857d-51a37cf40be8 --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role add --appName \"My app\" --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers"
+        "cmd": "entra app role add --appName \"My app\" --name Managers --description \"Managers\" --allowedMembers usersGroups --claim managers",
+        "errors": [
+          "/myorganization/applications/{applications-id} (Permissions information for 'GET /myorganization/applications/{applications-id}' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id} (Permissions information for 'PATCH /myorganization/applications/{applications-id}' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
@@ -526,13 +578,27 @@
     "command": "entra app role list",
     "examples": [
       {
-        "cmd": "entra app role list --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app role list --appObjectId d75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications/{applications-id}/appRoles (Permissions information for 'GET /myorganization/applications/{applications-id}/appRoles' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role list --appId e75be2e1-0204-4f95-857d-51a37cf40be8"
+        "cmd": "entra app role list --appId e75be2e1-0204-4f95-857d-51a37cf40be8",
+        "errors": [
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)",
+          "/myorganization/applications/{applications-id}/appRoles (Permissions information for 'GET /myorganization/applications/{applications-id}/appRoles' was not found.)"
+        ],
+        "skip": true
       },
       {
-        "cmd": "entra app role list --appName \"My app\""
+        "cmd": "entra app role list --appName \"My app\"",
+        "errors": [
+          "/myorganization/applications/{applications-id}/appRoles (Permissions information for 'GET /myorganization/applications/{applications-id}/appRoles' was not found.)",
+          "/myorganization/applications (Permissions information for 'GET /myorganization/applications' was not found.)"
+        ],
+        "skip": true
       }
     ]
   },
